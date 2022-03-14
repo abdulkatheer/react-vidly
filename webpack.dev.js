@@ -8,19 +8,19 @@ module.exports = merge(common, {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    assetModuleFilename: 'static/images/[name][ext]'
+    assetModuleFilename: "static/images/[name][ext]",
   },
-
+  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
-  }
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 });
