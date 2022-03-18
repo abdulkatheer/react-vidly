@@ -18,7 +18,7 @@ class Movies extends Component {
   };
 
   componentDidMount() {
-    const genres = [{ _id: 0, name: "All Genres" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     this.setState({
       movies: getMovies(),
       genres,
@@ -36,11 +36,10 @@ class Movies extends Component {
       this.state;
     const moviesCount = this.state.movies.length;
 
-    const { data: movies, totalCount } = this.getPagedData();
-
     if (moviesCount === 0) {
       return <p>There are no movies in the database!</p>;
     } else {
+      const { data: movies, totalCount } = this.getPagedData();
       return (
         <div className="row">
           <div className="col-3">

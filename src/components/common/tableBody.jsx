@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import PropTypes from "prop-types";
 
 class TableBody extends Component {
   render() {
@@ -27,5 +28,10 @@ class TableBody extends Component {
     return item._id + (column.name || column.key);
   }
 }
+
+TableBody.propTypes = {
+  data: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+};
 
 export default TableBody;
