@@ -9,8 +9,12 @@ const Like = (props) => {
   return <i className={classes} aria-hidden={liked} onClick={onClick}></i>;
 };
 
+Like.defaultProps = {
+  liked: false,
+};
+
 Like.propTypes = {
-  liked: PropTypes.bool.isRequired,
+  liked: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
 };
 

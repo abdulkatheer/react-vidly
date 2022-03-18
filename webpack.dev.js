@@ -9,8 +9,12 @@ module.exports = merge(common, {
     path: path.resolve(__dirname, "dist"),
     clean: true,
     assetModuleFilename: "static/images/[name][ext]",
+    publicPath: "/",
   },
   devtool: "source-map",
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {

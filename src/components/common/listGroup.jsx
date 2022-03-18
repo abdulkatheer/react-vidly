@@ -32,7 +32,7 @@ ListGroup.propTypes = {
   items: PropTypes.array.isRequired,
   keyProperty: PropTypes.string,
   valueProperty: PropTypes.string,
-  selectedItem: PropTypes.object.isRequired,
+  selectedItem: PropTypes.object,
   onItemSelect: PropTypes.func.isRequired,
 };
 
