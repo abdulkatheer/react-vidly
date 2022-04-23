@@ -6,6 +6,8 @@ import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import MovieTable from "./moviesTable";
 import _ from "lodash";
+import { Link } from "react-router-dom";
+import SearchBox from "./common/SearchBox";
 
 class Movies extends Component {
   state = {
@@ -14,6 +16,7 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     selectedGenre: null,
+    searchQuery: "",
     sortColumn: { path: "title", order: "asc" },
   };
 
@@ -32,8 +35,14 @@ class Movies extends Component {
   }
 
   render() {
-    const { pageSize, currentPage, genres, selectedGenre, sortColumn } =
-      this.state;
+    const {
+      pageSize,
+      currentPage,
+      genres,
+      selectedGenre,
+      searchQuery,
+      sortColumn,
+    } = this.state;
     const moviesCount = this.state.movies.length;
 
     if (moviesCount === 0) {
@@ -50,7 +59,15 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
+            <Link
+              to="/movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
+              New Movie
+            </Link>
             <p>Showing {totalCount} movies from the database..</p>
+            <SearchBox searchQuery={searchQuery} onChange={this.handleSearch} />
             <MovieTable
               movies={movies}
               sortColumn={sortColumn}
@@ -103,18 +120,36 @@ class Movies extends Component {
     this.setState({ sortColumn, currentPage: 1 });
   };
 
+  handleSearch = (searchQuery) => {
+    this.setState({
+      selectedGenre: null,
+      currentPage: 1,
+      searchQuery: searchQuery,
+    });
+  };
+
   getPagedData() {
     const {
       selectedGenre,
+      searchQuery,
       movies: allMovies,
       sortColumn,
       currentPage,
       pageSize,
     } = this.state;
-    const filtered =
-      selectedGenre == null || selectedGenre.name === "All Genres"
-        ? allMovies
-        : allMovies.filter((m) => m.genre._id === selectedGenre._id);
+    let filtered;
+
+    if (searchQuery) {
+      filtered = allMovies.filter((m) => {
+        const queryInLowercase = searchQuery.toLowerCase();
+        const titleInLowercase = m.title.toLowerCase();
+        return titleInLowercase.startsWith(queryInLowercase);
+      });
+    } else if (selectedGenre != null && selectedGenre.name !== "All Genres") {
+      filtered = allMovies.filter((m) => m.genre._id === selectedGenre._id);
+    } else {
+      filtered = allMovies;
+    }
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     return {
       totalCount: filtered.length,

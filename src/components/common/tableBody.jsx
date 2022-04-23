@@ -21,7 +21,7 @@ class TableBody extends Component {
   }
 
   renderCell(item, column) {
-    return column.path ? _.get(item, column.path) : column.content(item);
+    return column.key ? column.content(item) : _.get(item, column.path);
   }
 
   buildCellKey(item, column) {

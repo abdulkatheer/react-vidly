@@ -9,13 +9,18 @@ import NotFound from "./components/notFound";
 import Rentals from "./components/common/rentals";
 import Movie from "./components/movie";
 import { Switch } from "react-router-dom";
+import LoginForm from "./components/loginForm";
+import RegisterForm from "./components/registerForm";
+import MovieForm from "./components/movieForm";
 
 const App = () => (
   <React.Fragment>
     <NavBar />
     <main className="container">
       <Switch>
-        <Route path="/movies/:id" component={Movie} />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/register" component={RegisterForm} />
+        <Route path="/movies/:id" component={MovieForm} />
         <Route path="/movies" component={Movies} />
         <Route path="/customers" component={Customers} />
         <Route path="/rentals" component={Rentals} />
