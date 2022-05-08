@@ -2,7 +2,7 @@ import Joi from "joi-browser";
 import React from "react";
 import { getGenres } from "../services/genreService";
 import Form from "./common/form";
-import { getMovie, saveMovie } from "../services/fakeMovieService";
+import { getMovie, saveMovie } from "../services/movieService";
 
 class MovieForm extends Form {
   state = {
@@ -22,7 +22,7 @@ class MovieForm extends Form {
     const movieId = this.props.match.params.id;
     if (movieId === "new") return;
 
-    const movie = getMovie(movieId);
+    const movie = await getMovie(movieId);
     if (!movie) {
       this.props.history.replace("/not-found");
       return;
@@ -58,8 +58,8 @@ class MovieForm extends Form {
       .label("Daily Rental Rate"),
   };
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    await saveMovie(this.state.data);
     this.props.history.push("/movies");
     console.log("Movie added!");
   };
