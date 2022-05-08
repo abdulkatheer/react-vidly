@@ -1,4 +1,4 @@
-import * as genresAPI from "./fakeGenreService";
+import * as genresAPI from "./genreService";
 
 const movies = [
   {
@@ -78,10 +78,11 @@ export function getMovie(id) {
   return movies.find((m) => m._id === id);
 }
 
-export function saveMovie(movie) {
+export async function saveMovie(movie) {
   let movieInDb = movies.find((m) => m._id === movie._id) || {};
   movieInDb.title = movie.title;
-  movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreId);
+  const genres = await genresAPI.getGenres();
+  movieInDb.genre = genres.find((g) => g._id === movie.genreId);
   movieInDb.numberInStock = movie.numberInStock;
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
 

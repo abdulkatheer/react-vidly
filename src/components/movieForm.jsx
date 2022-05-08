@@ -1,6 +1,6 @@
 import Joi from "joi-browser";
 import React from "react";
-import { getGenres } from "../services/fakeGenreService";
+import { getGenres } from "../services/genreService";
 import Form from "./common/form";
 import { getMovie, saveMovie } from "../services/fakeMovieService";
 
@@ -16,8 +16,8 @@ class MovieForm extends Form {
     errors: {},
   };
 
-  componentDidMount() {
-    this.setState({ genres: getGenres() });
+  async componentDidMount() {
+    this.setState({ genres: await getGenres() });
 
     const movieId = this.props.match.params.id;
     if (movieId === "new") return;

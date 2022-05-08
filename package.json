@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.17.9",
+    "axios": "^0.18.1",
     "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
     "joi-browser": "^13.4.0",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.4",
+    "@babel/plugin-transform-runtime": "^7.17.10",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
