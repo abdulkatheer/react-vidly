@@ -1,8 +1,9 @@
 import * as genresAPI from "./genreService";
 import http from "./httpService";
+import config from "../config.json";
 
 export async function getMovies() {
-  const { data: movies } = await http.get("http://localhost:3900/api/movies");
+  const { data: movies } = await http.get(`${config.apiBaseUrl}/movies`);
   return movies;
 }
 
@@ -25,15 +26,12 @@ export async function saveMovie(movie) {
   let upsertedMovie;
   if (movieInDb._id) {
     const result = await http.put(
-      `http://localhost:3900/api/movies/${movieInDb._id}`,
+      `${config.apiBaseUrl}/movies/${movieInDb._id}`,
       movieDTO
     );
     upsertedMovie = result.data;
   } else {
-    const result = await http.post(
-      "http://localhost:3900/api/movies",
-      movieDTO
-    );
+    const result = await http.post(`${config.apiBaseUrl}/movies`, movieDTO);
     upsertedMovie = result.data;
   }
 
@@ -41,7 +39,7 @@ export async function saveMovie(movie) {
 }
 
 export async function deleteMovie(id) {
-  await http.delete("http://localhost:3900/api/movies", id);
+  await http.delete(`${config.apiBaseUrl}/movies/${id}`);
 }
 
 function mapModelToDTO(movieModel) {

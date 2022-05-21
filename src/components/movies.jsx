@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { getGenres } from "../services/genreService";
-import { getMovies } from "../services/movieService";
+import { getMovies, deleteMovie } from "../services/movieService";
 import { getPageCount, paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
 import MovieTable from "./moviesTable";
+import { toast } from "react-toastify";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import SearchBox from "./common/SearchBox";
@@ -95,9 +96,20 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handleDelete = (movie) => {
+  handleDelete = async (movie) => {
+    const originalMovies = this.state.movies;
     const { currentPage, pageSize } = this.state;
-    let movies = this.state.movies.filter((mov) => mov._id !== movie._id);
+    let movies = originalMovies.filter((mov) => mov._id !== movie._id);
+
+    try {
+      await deleteMovie(movie._id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+        toast.error("This movie has already been deleted!");
+      }
+      movies = originalMovies;
+    }
+
     if (getPageCount(movies.length, pageSize) < currentPage) {
       this.setState({
         movies,

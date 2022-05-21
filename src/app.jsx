@@ -7,14 +7,16 @@ import Movies from "./components/movies";
 import Customers from "./components/common/customers";
 import NotFound from "./components/notFound";
 import Rentals from "./components/common/rentals";
-import Movie from "./components/movie";
 import { Switch } from "react-router-dom";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
 import MovieForm from "./components/movieForm";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => (
   <React.Fragment>
+    <ToastContainer />
     <NavBar />
     <main className="container">
       <Switch>

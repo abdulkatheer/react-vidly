@@ -1,6 +1,7 @@
 import http from "./httpService";
+import config from "../config.json";
 
 export async function getGenres() {
-  const { data: genres } = await http.get("http://localhost:3900/api/genres");
+  const { data: genres } = await http.get(`${config.apiBaseUrl}/genres`);
   return genres;
 }
