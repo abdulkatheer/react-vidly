@@ -2,6 +2,7 @@ import Joi from "joi-browser";
 import React from "react";
 import Form from "./common/form";
 import * as userService from "../services/userService";
+import { loginWithToken } from "../services/authService";
 
 class RegisterForm extends Form {
   state = {
@@ -21,7 +22,10 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     try {
-      await userService.registerUser(this.state.data);
+      const data = await userService.registerUser(this.state.data);
+      const token = data.headers["x-auth-token"];
+      loginWithToken(token);
+      window.location = "/";
     } catch (ex) {
       console.log(ex.response);
       if (ex.response && ex.response.status === 400) {
