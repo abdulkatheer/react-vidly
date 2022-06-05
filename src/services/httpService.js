@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 Axios.interceptors.response.use(null, (error) => {
-  console.log("Interceptor Called");
+  console.log("Interceptor Called", error.response);
   const clientError =
     error.response &&
     error.response.status >= 400 &&
