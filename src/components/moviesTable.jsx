@@ -4,6 +4,7 @@ import "./moviesTable.css";
 import PropsTypes from "prop-types";
 import Table from "./common/table";
 import { Link } from "react-router-dom";
+import { getCurrentUser } from "../services/authService";
 
 class MoviesTable extends Component {
   columns = [
@@ -24,18 +25,27 @@ class MoviesTable extends Component {
         <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
       ),
     },
-    {
-      key: "delete",
-      content: (movie) => (
-        <button
-          onClick={() => this.props.onDelete(movie)}
-          className="btn btn-danger btn-sm"
-        >
-          Delete
-        </button>
-      ),
-    },
   ];
+
+  deleteUser = {
+    key: "delete",
+    content: (movie) => (
+      <button
+        onClick={() => this.props.onDelete(movie)}
+        className="btn btn-danger btn-sm"
+      >
+        Delete
+      </button>
+    ),
+  };
+
+  constructor() {
+    super();
+    const user = getCurrentUser();
+    if (user && user.isAdmin) {
+      this.columns.push(this.deleteUser);
+    }
+  }
 
   render() {
     const { movies, onSort, sortColumn } = this.props;

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import SearchBox from "./common/SearchBox";
+import { getCurrentUser } from "../services/authService";
 
 class Movies extends Component {
   state = {
@@ -44,6 +45,7 @@ class Movies extends Component {
       searchQuery,
       sortColumn,
     } = this.state;
+    const user = getCurrentUser();
     const moviesCount = this.state.movies.length;
 
     if (moviesCount === 0) {
@@ -60,13 +62,15 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
-            <Link
-              to="/movies/new"
-              className="btn btn-primary"
-              style={{ marginBottom: 20 }}
-            >
-              New Movie
-            </Link>
+            {user && (
+              <Link
+                to="/movies/new"
+                className="btn btn-primary"
+                style={{ marginBottom: 20 }}
+              >
+                New Movie
+              </Link>
+            )}
             <p>Showing {totalCount} movies from the database..</p>
             <SearchBox searchQuery={searchQuery} onChange={this.handleSearch} />
             <MovieTable
