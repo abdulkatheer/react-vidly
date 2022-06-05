@@ -4,6 +4,7 @@ import http from "./httpService";
 import config from "../config.json";
 
 const TOKEN_KEY = "authToken";
+http.setToken(getToken());
 
 export async function login(credentials) {
   const { data: token } = await http.post(`${config.apiBaseUrl}/auth`, {
@@ -13,7 +14,7 @@ export async function login(credentials) {
   localStorage.setItem(TOKEN_KEY, token);
 }
 
-export async function logout() {
+export function logout() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
@@ -27,6 +28,10 @@ export function getCurrentUser() {
   }
 }
 
-export async function loginWithToken(token) {
+export function loginWithToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
+}
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY);
 }

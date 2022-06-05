@@ -13,9 +13,14 @@ Axios.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 
+function setToken(token) {
+  Axios.defaults.headers.common["x-auth-token"] = token;
+}
+
 export default {
   get: Axios.get,
   post: Axios.post,
   put: Axios.put,
   delete: Axios.delete,
+  setToken,
 };
