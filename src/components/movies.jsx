@@ -48,48 +48,44 @@ class Movies extends Component {
     const user = getCurrentUser();
     const moviesCount = this.state.movies.length;
 
-    if (moviesCount === 0) {
-      return <p>There are no movies in the database!</p>;
-    } else {
-      const { data: movies, totalCount } = this.getPagedData();
-      return (
-        <div className="row">
-          <div className="col-3">
-            <ListGroup
-              items={genres}
-              selectedItem={selectedGenre}
-              onItemSelect={this.handleGenreSelected}
-            />
-          </div>
-          <div className="col">
-            {user && (
-              <Link
-                to="/movies/new"
-                className="btn btn-primary"
-                style={{ marginBottom: 20 }}
-              >
-                New Movie
-              </Link>
-            )}
-            <p>Showing {totalCount} movies from the database..</p>
-            <SearchBox searchQuery={searchQuery} onChange={this.handleSearch} />
-            <MovieTable
-              movies={movies}
-              sortColumn={sortColumn}
-              onLike={this.handleLike}
-              onDelete={this.handleDelete}
-              onSort={this.handleSort}
-            />
-            <Pagination
-              itemsCount={totalCount}
-              pageSize={pageSize}
-              currentPage={currentPage}
-              onPageChange={this.hanglePageChange}
-            />
-          </div>
+    const { data: movies, totalCount } = this.getPagedData();
+    return (
+      <div className="row">
+        <div className="col-3">
+          <ListGroup
+            items={genres}
+            selectedItem={selectedGenre}
+            onItemSelect={this.handleGenreSelected}
+          />
         </div>
-      );
-    }
+        <div className="col">
+          {user && (
+            <Link
+              to="/movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
+              New Movie
+            </Link>
+          )}
+          <p>Showing {totalCount} movies from the database..</p>
+          <SearchBox searchQuery={searchQuery} onChange={this.handleSearch} />
+          <MovieTable
+            movies={movies}
+            sortColumn={sortColumn}
+            onLike={this.handleLike}
+            onDelete={this.handleDelete}
+            onSort={this.handleSort}
+          />
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.hanglePageChange}
+          />
+        </div>
+      </div>
+    );
   }
 
   handleLike = (movie) => {
