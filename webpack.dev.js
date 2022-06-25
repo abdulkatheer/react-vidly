@@ -30,8 +30,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV' : JSON.stringify('development'),
-      'process.env.APP_VERSION' : JSON.stringify('1.0.0-SNAPSHOT')
+      'env.VIDLY_API_BASE_RUL' : JSON.stringify('http://localhost:3900/api')
     }),
   ]
 });

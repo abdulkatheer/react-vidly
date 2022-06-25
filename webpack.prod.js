@@ -17,8 +17,7 @@ module.exports = merge(common, {
       filename: "[name]-[contenthash].css"
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV' : JSON.stringify('production'),
-      'process.env.APP_VERSION' : JSON.stringify('1.0.0')
+      'env.VIDLY_API_BASE_RUL' : JSON.stringify('https://salty-river-76020.herokuapp.com/api')
     }),
   ],
   module: {

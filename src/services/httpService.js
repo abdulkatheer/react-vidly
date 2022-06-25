@@ -1,5 +1,7 @@
 import Axios from "axios";
 
+Axios.defaults.baseURL = env.VIDLY_API_BASE_RUL;
+
 Axios.interceptors.response.use(null, (error) => {
   console.log("Interceptor Called", error.response);
   const clientError =
