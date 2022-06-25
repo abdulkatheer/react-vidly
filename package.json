@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --open",
+    "dev": "webpack-dev-server --config webpack.dev.js --open",
     "buildDev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "startProd": "node server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
